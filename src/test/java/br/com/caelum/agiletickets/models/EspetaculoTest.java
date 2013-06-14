@@ -57,7 +57,7 @@ public class EspetaculoTest {
 
 		ivete.getSessoes().add(sessaoComIngressosSobrando(3));
 		ivete.getSessoes().add(sessaoComIngressosSobrando(3));
-		ivete.getSessoes().add(sessaoComIngressosSobrando(4));
+//		ivete.getSessoes().add(sessaoComIngressosSobrando(4));
 
 		assertTrue(ivete.Vagas(10, 3));
 	}
@@ -75,7 +75,7 @@ public class EspetaculoTest {
 
 	private Sessao sessaoComIngressosSobrando(int quantidade) {
 		Sessao sessao = new Sessao();
-//		sessao.setTotalIngressos(quantidade * 2);
+		sessao.setTotalIngressos(quantidade * 2);
 		sessao.setIngressosReservados(quantidade);
 
 		return sessao;
