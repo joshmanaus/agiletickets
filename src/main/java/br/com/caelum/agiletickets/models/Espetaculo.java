@@ -12,8 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
+import org.joda.time.Weeks;
 
 @Entity
 public class Espetaculo {
@@ -96,8 +99,30 @@ public class Espetaculo {
       * Repare que a data da primeira sessao é sempre a data inicial.
       */
 	public List<Sessao> criaSessoes(LocalDate inicio, LocalDate fim, LocalTime horario, Periodicidade periodicidade) {
-		// ALUNO: Não apague esse metodo. Esse sim será usado no futuro! ;)
-		return null;
+		verificaDatas(inicio, fim);
+		
+		int intervalo = periodicidade.getIntervalo(inicio, fim );
+											
+		for(int i = 0; i < intervalo; i++){				
+			
+			Sessao sessao = new Sessao();
+			sessao.setInicio(inicio.toDateTime(horario));
+			
+			this.getSessoes().add(sessao);					
+		}
+				
+		return this.getSessoes();
+	}
+
+	public void verificaDatas(LocalDate inicio, LocalDate fim) {
+		LocalDate hoje = new DateTime().toLocalDate();
+		
+		if(hoje.isAfter(inicio) || hoje.isAfter(fim)){
+			throw new IllegalArgumentException("Datas inferiores a data atual");
+		}
+		if(inicio.isAfter(fim)){
+			throw new IllegalArgumentException("Fim e menor que inicio");
+		}
 	}
 	
 	public boolean Vagas(int qtd, int min)
@@ -129,4 +154,39 @@ public class Espetaculo {
         else return false;
     }
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Espetaculo other = (Espetaculo) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		if (tipo != other.tipo)
+			return false;
+		return true;
+	}
+
+    
 }
