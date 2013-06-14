@@ -38,7 +38,7 @@ public class CalculadoraTest {
 	
 	@Test
 	public void deveRetornar0QuandoMultiplicamosMenos17e0() throws Exception {
-		double resultado = calculadora.multiplica(17, 0);
+		double resultado = calculadora.multiplica(17, 1);
 		
 		assertEquals(0.0, resultado, PRECISAO);
 	}
