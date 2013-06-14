@@ -75,7 +75,7 @@ public class EspetaculoTest {
 
 	private Sessao sessaoComIngressosSobrando(int quantidade) {
 		Sessao sessao = new Sessao();
-		sessao.setTotalIngressos(quantidade * 2);
+//		sessao.setTotalIngressos(quantidade * 2);
 		sessao.setIngressosReservados(quantidade);
 
 		return sessao;
